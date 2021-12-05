@@ -10,21 +10,6 @@ def runLinuxCmd(cmd):
     op,err = p.communicate()
     return op.decode('utf-8').strip()
 
-def run_rmt_cmd(cmds,ip="10.0.2.15",username="arjun",passwd="arjun",tmout=600):
-    output = ""
-    ch = pexpect.spawn("ssh " + username+"@"+ip)
-    ch.expect("password")
-    ch.sendline(passwd)
-    ch.expect("arjun-VirtualBox")
-    
-    for cmd in cmds:
-        print(cmd)
-        ch.sendline(cmd)
-        ch.expect("arjun-VirtualBox")
-        print(ch.before)
-        output = output + str(ch.before)
-
-    return output
 
 def getTimeofSipMsg(fileName,message,direction):
     fl = open(fileName,"r")
