@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="Basic Sipstone UAS">
+
+  <recv request="OPTIONS" optional="true" next="handle_options"/> 
+
+  <label id="handle_invite"/>    
+  <recv request="INVITE">
+  
+  <action>
+   <ereg regexp=".*" search_in="hdr" header="From" assign_to="remote_from"/>
+   <ereg regexp="sip:(.*)>.*" search_in="hdr" header="Contact" assign_to="trash,remote_contact"/>
+  </action>
+ </recv>
+ <!-- since SIPp complains about not used variable reference the trach var -->
+ 
+ <Reference variables="trash"/>
+ 
+<!--
+ <send>
+  <![CDATA[
+  SIP/2.0 180 Ringing
+  [last_Via:]
+  [last_From:]
+  [last_To:];tag=SIPpTag01
+  [last_Call-ID:]
+  [last_CSeq:]
+  Contact: <sip:[local_ip]:[local_port];transport=[transport]>
+  Content-Length: [len]
+  
+  ]]>
+ </send>
+ -->
+ <send>
+  <![CDATA[
+  SIP/2.0 200 OK
+  [last_Via:]
+  [last_From:]
+  [last_To:];tag=SIPpTag01
+  [last_Call-ID:]
+  [last_CSeq:]
+  [last_Record-Route:]
+  Contact: <sip:[local_ip]:[local_port];transport=[transport]>
+  Content-Type: application/sdp
+  Content-Length: [len]
+  
+  v=0
+  o=user1 53655765 2353687637 IN IP[local_ip_type] [local_ip]
+  s=-
+  c=IN IP[media_ip_type] [media_ip]
+  t=0 0
+  m=audio [media_port] RTP/AVP 0
+  a=rtpmap:0 PCMU/8000
+  ]]>
+ </send>
+ 
+ <recv request="ACK" rrs="true">
+ <action>
+   <ereg regexp=".*" search_in="hdr" header="To" assign_to="remote_to"/>
+  </action>
+ </recv>
+ <pause milliseconds="50000"/>
+ 
+ <send>
+  <![CDATA[
+  BYE sip:[$remote_contact] SIP/2.0
+  Via: SIP/2.0/[transport] [local_ip]:[local_port];rport;branch=[branch]
+  From[$remote_to]
+  To[$remote_from]
+  [routes]
+  Call-ID: [call_id]
+  Cseq: [cseq+1] BYE
+  Contact: <sip:[local_ip]:[local_port];transport=[transport]>
+  Max-Forwards: 70
+  Content-Length: 0
+  ]]>
+ </send>
+ 
+ <recv response="200" timeout="10000" ontimeout="finished">
+ </recv>
+
+ 
+ <nop next="finished"/>
+
+ <label id="handle_options"/>
+
+<send>
+<![CDATA[
+  SIP/2.0 200 OK
+  [last_Via:]
+  [last_From:]
+  [last_To:];tag=12345
+  [last_Call-ID:]
+  [last_CSeq:]
+  Content-Length: [len]
+  ]]>
+</send>
+
+ <nop next="handle_invite"/>
+<label id="finished"/> 
+</scenario>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<scenario name="Basic Sipstone UAS">
+   
+   <send>
+    <![CDATA[
+
+REGISTER sip:phone.plivo.com SIP/2.0
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+Route: <sip:phone.plivo.com;lr>
+Max-Forwards: 70
+From: "caller" <sip:test1281881673873471385@phone.plivo.com>;tag=f8e58325bd4f4d7
+To: "caller" <sip:test1281881673873471385@phone.plivo.com>
+Call-ID: [call_id]
+CSeq: 1 REGISTER
+User-Agent: MicroSIP/3.20.7
+Contact: "caller" <sip:test1281881673873471385@[local_ip]:[local_port];ob>
+Expires: 3600
+Allow: PRACK, INVITE, ACK, BYE, CANCEL, UPDATE, INFO, SUBSCRIBE, NOTIFY, REFER, MESSAGE, OPTIONS
+Content-Length:  0   
+
+    ]]>
+  </send>
+
+<recv response="401" auth="true">
+  </recv>
+
+  <send retrans="500">
+    <![CDATA[
+
+      REGISTER sip:phone.plivo.com SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      Route: <sip:phone.plivo.com;lr> 
+      From: <sip:test1281881673873471385@phone.plivo.com>;tag=f8e58325bd4f4d7
+      To: <sip:test1281881673873471385@phone.plivo.com>
+      Call-ID: [call_id]
+      CSeq: 2 REGISTER
+      Contact: "caller" <sip:test1281881673873471385@[local_ip]:[local_port];ob>
+      [authentication username=test1281881673873471385 password=plivo]
+      Max-Forwards: 70
+      Expires: 3600
+      User-Agent: SIPp/Linux
+      Content-Length: 0
+      
+       ]]>
+  </send>
+  
+  <recv response="200" crlf="true">
+  </recv>
+
+</scenario>

@@ -1,0 +1,64 @@
+----------------------------------------------- 2021-12-05 21:15:43.966891
+UDP message sent (564 bytes):
+
+REGISTER sip:phone.plivo.com SIP/2.0
+Via: SIP/2.0/UDP 10.0.2.15:5060;branch=z9hG4bK-4201-1-0
+Route: <sip:phone.plivo.com;lr>
+Max-Forwards: 70
+From: "caller" <sip:test1281881673873471385@phone.plivo.com>;tag=f8e58325bd4f4d7
+To: "caller" <sip:test1281881673873471385@phone.plivo.com>
+Call-ID: 1-4201@10.0.2.15
+CSeq: 1 REGISTER
+User-Agent: MicroSIP/3.20.7
+Contact: "caller" <sip:test1281881673873471385@10.0.2.15:5060;ob>
+Expires: 3600
+Allow: PRACK, INVITE, ACK, BYE, CANCEL, UPDATE, INFO, SUBSCRIBE, NOTIFY, REFER, MESSAGE, OPTIONS
+Content-Length:  0
+
+
+----------------------------------------------- 2021-12-05 21:15:44.216773
+UDP message received [481] bytes :
+
+SIP/2.0 401 Unauthorized
+Via: SIP/2.0/UDP 10.0.2.15:5060;branch=z9hG4bK-4201-1-0;rport=55153;received=106.202.132.135
+From: "caller" <sip:test1281881673873471385@phone.plivo.com>;tag=f8e58325bd4f4d7
+To: "caller" <sip:test1281881673873471385@phone.plivo.com>;tag=29448b59318aeb4a6f5c278a948e722a.3c7a6c13
+Call-ID: 1-4201@10.0.2.15
+CSeq: 1 REGISTER
+WWW-Authenticate: Digest realm="phone.plivo.com", nonce="Yazf1GGs3qhIeVuLzt19sNSWeA86CRra"
+Server: Plivo
+Content-Length: 0
+
+
+----------------------------------------------- 2021-12-05 21:15:44.217010
+UDP message sent (651 bytes):
+
+REGISTER sip:phone.plivo.com SIP/2.0
+Via: SIP/2.0/UDP 10.0.2.15:5060;branch=z9hG4bK-4201-1-2
+Route: <sip:phone.plivo.com;lr>
+From: <sip:test1281881673873471385@phone.plivo.com>;tag=f8e58325bd4f4d7
+To: <sip:test1281881673873471385@phone.plivo.com>
+Call-ID: 1-4201@10.0.2.15
+CSeq: 2 REGISTER
+Contact: "caller" <sip:test1281881673873471385@10.0.2.15:5060;ob>
+Authorization: Digest username="test1281881673873471385",realm="phone.plivo.com",uri="sip:52.9.254.123:5060",nonce="Yazf1GGs3qhIeVuLzt19sNSWeA86CRra",response="71f7c942e3382af700a80f1a93702727",algorithm=MD5
+Max-Forwards: 70
+Expires: 3600
+User-Agent: SIPp/Linux
+Content-Length: 0
+
+
+----------------------------------------------- 2021-12-05 21:15:44.469511
+UDP message received [435] bytes :
+
+SIP/2.0 200 OK
+Via: SIP/2.0/UDP 10.0.2.15:5060;branch=z9hG4bK-4201-1-2;rport=55153;received=106.202.132.135
+From: <sip:test1281881673873471385@phone.plivo.com>;tag=f8e58325bd4f4d7
+To: <sip:test1281881673873471385@phone.plivo.com>;tag=29448b59318aeb4a6f5c278a948e722a.3c7a6c13
+Call-ID: 1-4201@10.0.2.15
+CSeq: 2 REGISTER
+Contact: <sip:test1281881673873471385@192.168.1.9:55153;ob>;expires=3600
+Server: Plivo
+Content-Length: 0
+
+
