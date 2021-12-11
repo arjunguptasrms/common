@@ -49,7 +49,7 @@ def getTimeofSipMsg(fileName,message,direction):
 
 
 runLinuxCmd("rm -f *.log")
-
+##
 time.sleep(2)
 runLinuxCmd("sipp -sf UE1.xml -m 1 -i 10.0.2.15 -p 5060 52.9.254.123:5060 -trace_msg -bg")
 time.sleep(2)
